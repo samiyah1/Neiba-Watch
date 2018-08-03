@@ -73,3 +73,13 @@ class Post(models.Model):
 
     def save_post(self):
         self.save()
+
+class Join(models.Model):
+    '''
+    Model that keeps track of users and the neighbourhoods they're in
+	'''
+    user_id = models.ForeignKey(User)
+    hood_id = models.ForeignKey(NeighbourHood)
+
+    def __str__(self):
+        return self.user_id
