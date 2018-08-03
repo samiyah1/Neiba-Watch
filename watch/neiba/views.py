@@ -27,3 +27,26 @@ def user_login(request):
     else:
         form = LoginForm()
     return render(request, 'registration/login.html', {'form': form})
+
+def register(request):
+    """
+    view function to create user registration form and allow users to register
+    """
+    if request.method == 'POST':
+        user_form = UserRegistrationForm(request.POST)
+
+        if user_form.is_valid():
+            # Create a new user object but avoid saving it yet
+            new_user = user_form.save(commit=False)
+            # Set the chosen password
+            new_user.set_password(user_form.cleaned_data['password'])
+            # Save the User object
+            new_user.save()
+            # Create the user profile
+            profile = Profile.objects.create(user=new_user)
+            return render(request,
+                          'account/register_done.html',
+                          {'new_user': new_user,'profile':profile})
+    else:
+        form = UserRegistrationForm()
+    return render(request, 'registration/registration_form.html', {'form': form})
