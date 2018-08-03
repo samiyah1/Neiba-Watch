@@ -3,6 +3,7 @@ from django.http  import HttpResponse
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
+from .models import Profile,NeighbourHood,Post,Join
 from .forms import LoginForm, UserRegistrationForm,ProfileEditForm,UserEditForm,NewPostForm,NewHoodForm
 from django.contrib import messages
 
@@ -57,10 +58,10 @@ def home(request):
     '''
     This the home page view function and all that is in the home templates
     '''
-    # post = Post.objects.all()
+    post = Post.objects.all()
     # public = Social.objects.all()
-    # return render(request, 'home.html', {"post": post, "public": public})
-    return render(request, 'home.html')
+    return render(request, 'home.html', {"post": post})
+
 
 @login_required
 def Profile(request):
@@ -142,3 +143,38 @@ def join(request, hoodId):
             request, 'Welcome. You are now a member of this Neighbourhood')
         Join(user_id=request.user, hood_id=neighbourhood).save()
         return redirect('displayhood')
+
+@login_required(login_url='/accounts/login/')
+def business(request):
+    current_user = request.user
+    if request.method == 'POST':
+        form = NewBusinessForm(request.POST)
+        if form.is_valid():
+            business = form.save(commit=False)
+            business.user = current_user
+            business.save()
+            return redirect('home')
+    else:
+        form = NewBusinessForm()
+    return render(request, 'business.html', {"form": form})
+
+# View function that enables a user create a social place for the the occupants of a community
+
+@login_required(login_url='/accounts/login/')
+def social_ammenities(request):
+    current_user = request.user
+    if request.method == 'POST':
+        form = NewSocialForm(request.POST)
+        if form.is_valid():
+            social = form.save(commit=False)
+            social.user = current_user
+            social.save()
+            return redirect('homepage')
+    else:
+        form = NewSocialForm()
+    return render(request, 'social.html', {"form": form})
+
+@login_required(login_url='/accounts/login/')
+def bizdisplay(request):
+    biz = Business.objects.all()
+    return render(request, 'mydisplay.html', {"biz": biz})
