@@ -67,3 +67,26 @@ def Profile(request):
     This is a view function to show the profile details and details of the user
     '''
     return render(request,'profile/profile.html')
+
+@login_required
+def edit(request):
+     current_user = request.user
+
+     if request.method == 'POST':
+        if Profile.objects.filter(user_id= current_user):
+
+            profile_form = ProfileEditForm(request.POST,request.FILES,instance = Profile.objects.get(user_id=current_user))
+        else:
+            profile_form = ProfileEditForm(request.POST,request.FILES)
+
+        if profile_form.is_valid():
+            userProfile=profile_form.save(commit = False)
+            userProfile.user = current_user
+            userProfile.save()
+            messages.success(request, 'Profile updated successfully')
+        else:
+            messages.error(request, 'Error updating your profile')
+     else:
+
+        profile_form = ProfileEditForm()
+     return render(request, 'profile/profile.html', {'profile_form': profile_form})
