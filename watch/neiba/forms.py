@@ -2,7 +2,7 @@ from django import forms
 from django.conf import settings
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
-from .models import Profile,NeighbourHood
+from .models import Profile,NeighbourHood,Post
 
 class LoginForm(forms.Form):
     username = forms.CharField()
@@ -27,3 +27,13 @@ class ProfileEditForm(forms.ModelForm):
         model = Profile
         fields = ('email', 'photo','gender','house','contribution')
         exclude = ['user']
+
+class UserEditForm(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = ('first_name', 'last_name', 'email')
+
+class NewPostForm(forms.ModelForm):
+    class Meta:
+        model = Post
+        exclude = ['hood', 'user']
