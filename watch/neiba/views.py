@@ -3,7 +3,7 @@ from django.http  import HttpResponse
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
-from .forms import LoginForm, UserRegistrationForm,
+from .forms import LoginForm, UserRegistrationForm
 from django.contrib import messages
 
 # Create your views here.
@@ -36,6 +36,7 @@ def register(request):
         user_form = UserRegistrationForm(request.POST)
 
         if user_form.is_valid():
+
             # Create a new user object but avoid saving it yet
             new_user = user_form.save(commit=False)
             # Set the chosen password
@@ -50,3 +51,12 @@ def register(request):
     else:
         form = UserRegistrationForm()
     return render(request, 'registration/registration_form.html', {'form': form})
+
+@login_required
+def home(request):
+    '''
+    This the home page view function and all that is in the home templates
+    '''
+    post = Post.objects.all()
+    public = Social.objects.all()
+    return render(request, 'home.html', {"post": post, "public": public})
