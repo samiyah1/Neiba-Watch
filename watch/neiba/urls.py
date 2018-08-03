@@ -13,6 +13,8 @@ urlpatterns=[
     url(r'^edit/$', views.edit, name='edit'),
     url(r'^new/post/$', views.new_post, name='post'),
     url(r'^hood/$', views.neighbourhood, name='neighbourhood'),
+    url(r'^neighbourhood_display/$', views.neibadisplay, name='displayhood'),
+    url(r'^join/(\d+)', views.join, name='joinHood'),
 
 ]
 # if settings.DEBUG:
