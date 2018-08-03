@@ -12,12 +12,9 @@
         {% if user.is_authenticated %}
       <a class="navbar-brand" href="{% url 'home' %}">Neighbourhood</a>
       <a class="navbar-brand" href="{%url 'userprofile'%}">Profile</a>
-      <a class="navbar-brand" href="{% url 'explore' %}">explore</a>
       <a  class="navbar-brand" href="{%url 'post' %}">Post Notice</a>
-      <a class="navbar-brand" href="{%url 'business' %}">Add Business</a>
-      <a class="navbar-brand" href="{%url 'bizdisplay' %}">View Businesses</a>
-      <a class="navbar-brand" href="{%url 'neighbourhood' %}">join Neighbourhood</a>
-     <a class="navbar-brand" href="{%url 'displayhood' %}">View Neighbourhoods</a>
+
+  
       <a class="navbar-brand" href="/logout">logout</a>
 
   {% else %}
