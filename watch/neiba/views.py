@@ -126,4 +126,19 @@ def neighbourhood(request):
 def neibadisplay(request):
     hoods = NeighbourHood.objects.all()
     return render(request, 'allneibas.html', {"hoods": hoods})
-#
+
+def join(request, hoodId):
+    '''
+    This view function will enable new users join a given neighbourhood
+    '''
+    neighbourhood = NeighbourHood.objects.get(pk=hoodId)
+    if Join.objects.filter(user_id=request.user).exists():
+        messages.success(
+            request, 'Welcome. You are now a member of this Neighbourhood')
+        Join.objects.filter(user_id=request.user).update(hood_id=neighbourhood)
+        return redirect('displayhood')
+    else:
+        messages.success(
+            request, 'Welcome. You are now a member of this Neighbourhood')
+        Join(user_id=request.user, hood_id=neighbourhood).save()
+        return redirect('displayhood')
