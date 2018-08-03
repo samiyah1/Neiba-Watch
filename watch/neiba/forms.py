@@ -37,3 +37,9 @@ class NewPostForm(forms.ModelForm):
     class Meta:
         model = Post
         exclude = ['hood', 'user']
+
+
+class NewHoodForm(forms.ModelForm):
+    class Meta:
+        model = NeighbourHood
+        fields = ('name', 'location', 'occupants','city')
