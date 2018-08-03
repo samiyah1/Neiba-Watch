@@ -1,0 +1,41 @@
+{%extends "registration/base.html"%}
+{% load bootstrap3 %}
+
+{% block content %}
+{{bock.super}}
+
+
+<div class="div1" style="margin-top:100px;margin-left:900px;width: 400px;
+height: 330px;
+border: 1px solid rgb(209, 193, 193); ">
+<h2 style="font-family: 'Lobster Two', cursive;text-align:center;font-size:50px;">Neighbourhood</h2>
+  {% if form.errors %}
+  <p style="color: red">Your username and password didn't match. Please try again.</p>
+{% endif %}
+<form action="/accounts/login/" style="margin-left:100px;" method="post">
+
+  {% csrf_token %}
+  <input type="hidden" name="next" value="{{ home }}" />
+  {% for field in form %}
+    <p>
+      {{ field.label_tag }}<br>
+      {{ field }}<br>
+      {% for error in field.errors %}
+        <p style="color: red">{{ error }}</p>
+      {% endfor %}
+      {% if field.help_text %}
+        <p><small style="color: grey">{{ field.help_text }}</small></p>
+      {% endif %}
+    </p>
+  {% endfor %}
+  <button  class="btn btn-primary " type="submit" >Log in</button>
+
+
+</div>
+
+</div>
+<div class="div2"style="margin-top:-90px;margin-left:900px;width: 400px;
+height: 80px;
+border: 1px solid rgb(209, 193, 193);text-align:center;font-size:18px;margin-top:10px;padding:15px; " > Do'nt have and account?   <a href="{% url 'register' %}">sign Up</a> </div>
+</form>
+{% endblock %}
