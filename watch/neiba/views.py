@@ -106,3 +106,24 @@ def new_post(request):
     else:
         form = NewPostForm()
     return render(request, 'neiba/post.html', {"form": form})
+
+@login_required(login_url='/accounts/login/')
+def neighbourhood(request):
+    current_user = request.user
+    if request.method == 'POST':
+        form = NewHoodForm(request.POST)
+        if form.is_valid():
+            hood = form.save(commit=False)
+            hood.user = current_user
+            hood.save()
+            return redirect('home')
+    else:
+        form = NewHoodForm()
+    return render(request, 'neiba/neibahood.html', {"form": form})
+
+
+@login_required(login_url='/accounts/login/')
+def neibadisplay(request):
+    hoods = NeighbourHood.objects.all()
+    return render(request, 'allneibas.html', {"hoods": hoods})
+#
