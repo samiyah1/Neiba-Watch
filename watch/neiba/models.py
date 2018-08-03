@@ -37,4 +37,22 @@ class NeighbourHood(models.Model):
         neibas = cls.objects.update(occupants=occupants).all()
         return neibas
 
-# Create your models here.
+"""class model that represent the users who log init the app"""
+class Profile(models.Model):
+    user = models.OneToOneField(settings.AUTH_USER_MODEL)
+    email = models.EmailField()
+    gender = models.CharField(max_length=1,choices=(('M','Male'),('F','Female')),blank=True)
+    house = models.CharField(max_length=200)
+    city = models.CharField(max_length=255)
+    location = PlainLocationField(based_fields=['city'], zoom=7)
+    contribution=models.CharField(max_length=200)
+    photo = models.ImageField(upload_to = 'users/%Y/%m/%d', null=True)
+
+    last_update = models.DateTimeField(auto_now_add=True, null=True)
+
+
+    def __str__(self):
+        return 'Profile for user {}'.format(self.user.username)
+
+    def save_profile(self):
+        self.save()
