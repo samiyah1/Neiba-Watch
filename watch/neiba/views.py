@@ -3,7 +3,7 @@ from django.http  import HttpResponse
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
-from .forms import LoginForm, UserRegistrationForm,ProfileEditForm
+from .forms import LoginForm, UserRegistrationForm,ProfileEditForm,UserEditForm,NewPostForm
 from django.contrib import messages
 
 # Create your views here.
@@ -57,9 +57,10 @@ def home(request):
     '''
     This the home page view function and all that is in the home templates
     '''
-    post = Post.objects.all()
-    public = Social.objects.all()
-    return render(request, 'home.html', {"post": post, "public": public})
+    # post = Post.objects.all()
+    # public = Social.objects.all()
+    # return render(request, 'home.html', {"post": post, "public": public})
+    return render(request, 'home.html')
 
 @login_required
 def Profile(request):
@@ -90,3 +91,18 @@ def edit(request):
 
         profile_form = ProfileEditForm()
      return render(request, 'profile/profile.html', {'profile_form': profile_form})
+
+
+@login_required(login_url='/accounts/login/')
+def new_post(request):
+    current_user = request.user
+    if request.method == 'POST':
+        form = NewPostForm(request.POST, request.FILES)
+        if form.is_valid():
+            post = form.save(commit=False)
+            post.user = current_user
+            post.save()
+            return redirect('home')
+    else:
+        form = NewPostForm()
+    return render(request, 'neiba/post.html', {"form": form})
