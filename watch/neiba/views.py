@@ -3,7 +3,7 @@ from django.http  import HttpResponse
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
-from .forms import LoginForm, UserRegistrationForm
+from .forms import LoginForm, UserRegistrationForm,ProfileEditForm
 from django.contrib import messages
 
 # Create your views here.
@@ -60,3 +60,10 @@ def home(request):
     post = Post.objects.all()
     public = Social.objects.all()
     return render(request, 'home.html', {"post": post, "public": public})
+
+@login_required
+def Profile(request):
+    '''
+    This is a view function to show the profile details and details of the user
+    '''
+    return render(request,'profile/profile.html')
