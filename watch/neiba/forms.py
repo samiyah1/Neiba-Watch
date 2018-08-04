@@ -2,7 +2,7 @@ from django import forms
 from django.conf import settings
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
-from .models import Profile,NeighbourHood,Post
+from .models import Profile,NeighbourHood,Post,Social
 
 class LoginForm(forms.Form):
     username = forms.CharField()
@@ -43,3 +43,14 @@ class NewHoodForm(forms.ModelForm):
     class Meta:
         model = NeighbourHood
         fields = ('name', 'location', 'occupants','city')
+
+
+# class NewBusinessForm(forms.ModelForm):
+#     class Meta:
+#         model = Business
+#         exclude = ['hood', 'user']
+
+class NewSocialForm(forms.ModelForm):
+    class Meta:
+        model = Social
+        exclude = ['hood']
