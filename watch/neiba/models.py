@@ -83,3 +83,13 @@ class Join(models.Model):
 
     def __str__(self):
         return self.user_id
+
+class Social(models.Model):
+    socialName = models.CharField(max_length=100)
+    location = models.CharField(max_length=100)
+    description = models.CharField(max_length=100)
+    address = models.CharField(max_length=100)
+    NeighbourHood = models.ForeignKey(NeighbourHood, null=True)
+
+    def __str__(self):
+        return self.socialName
