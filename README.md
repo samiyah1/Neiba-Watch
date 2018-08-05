@@ -5,7 +5,7 @@
 This is an application where users can sign in and get the latest neighbourhood notices and businesses around the neighbourhood . Users can join neighbourhood to the post Notices.
 Link to deployed site
 
-http://mtr1bune.herokuapp.com/
+https://neiba-watch.herokuapp.com
 ## Table of content
 
     * Description
