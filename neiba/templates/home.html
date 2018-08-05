@@ -1,0 +1,63 @@
+{%extends 'base.html'%}
+{% block content %}
+{{block.super}}
+
+
+<h1>hello welcome to neighbourhood watch</h1>
+<a  href="{%url 'post' %}" class="button">Post Notice</a>
+<div class="container">
+        <hr>
+        <div class="row">
+            <h3 style="text-align: center">Neighbourhood's Notices</h3>
+            {%for Neiba in NeighbourHood %}
+            <h4>{{NeighbourHood.name|upper}}</h4>
+
+            {%endfor%}
+            {% for post in post %}
+            <div class="col-md-4">
+                <div class="panel panel-info">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">{{post.title|upper}}</h3>
+                    </div>
+                    <div class="panel-body">
+                        {{post.description}}
+                    </div>
+                    <div class="panel-footer">{{post.postDate}}</div>
+                </div>
+            </div>
+            {% endfor %}
+
+        </div>
+        <hr>
+        <div class="row">
+
+        <h3 style="text-align: center">Hood's Public Ammenities</h3>
+            {% for public in public %}
+            <div class="col-md-4">
+                <div class="panel panel-info">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">{{socialName|upper}}</h3>
+                    </div>
+                    <div class="panel-body">
+                        {{Social.location}}
+                    </div>
+                    <div class="panel-body">
+                        {{Social.description}}
+                    </div>
+                    <div class="panel-body">
+                        {{Social.address}}
+                    </div>
+                    <div class="panel-footer">
+                        {{Social.hood}}
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+
+          </div>
+        </div>
+
+
+
+
+ {% endblock %}
