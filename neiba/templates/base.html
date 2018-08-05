@@ -1,0 +1,48 @@
+{% load bootstrap3 %}
+{% load static%}
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="https://fonts.googleapis.com/css?family=MedievalSharp" rel="stylesheet">
+  {% block styles %}
+    {% bootstrap_css %}
+    <link rel="stylesheet" href="{% static 'css/neiba.css' %}">
+  {% endblock %}
+<style media="screen">
+  .card {
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    transition: 0.3s;
+    width: 40%;
+}
+
+.card:hover {
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+}
+
+.container {
+    padding: 2px 16px;
+  }
+
+
+</style>
+</head>
+
+<body style="font-family: 'MedievalSharp', cursive;background-image:url('{% static "images/bigy.jpg"%}');">
+        {% include "navbar.html" %}
+
+  {% block content %}
+
+  {%endblock%}
+
+
+  {% block scripts %}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    {% bootstrap_javascript %}
+  {% endblock %}
+
+</body>
+
+</html>
