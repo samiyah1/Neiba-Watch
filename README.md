@@ -34,7 +34,7 @@ Technologies used
 
 Clone the Repo and checkout into the project folder.
 
-
+https://github.com/samiyah1/Neiba-Watch.git
 
 Create and activate the virtual environment
 

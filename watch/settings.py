@@ -34,6 +34,7 @@ INSTALLED_APPS = [
     'neiba',
     'bootstrap3',
     'imagekit',
+    'uikit_admin',
     'location_field.apps.DefaultConfig',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -129,3 +130,7 @@ STATIC_URL = '/static/'
 
 DIA_URL ='/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+LOGIN_URL = 'login'
+LOGOUT_URL = 'logout'
+LOGIN_REDIRECT_URL = 'home'
